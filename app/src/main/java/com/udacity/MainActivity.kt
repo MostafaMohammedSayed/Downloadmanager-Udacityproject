@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (id==downloadID){
                 custom_button.uponDownloadComplete()
                 notificationManager = ContextCompat.getSystemService(context!!,NotificationManager::class.java) as NotificationManager
-                notificationManager.cancelNotification()
+                notificationManager.cancel(NOTIFICATION_ID)
                 notificationManager.sendNotification(getString(R.string.notification_message_body),context)
             }
             val query = DownloadManager.Query().setFilterById(downloadID)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             if (who == Intent.ACTION_POWER_CONNECTED){
                 context.startActivity(intent)
             }
-            notificationManager.cancelNotification()
+            notificationManager.cancel(NOTIFICATION_ID)
         }
     }
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             NOTIFICATION_ID,
             contentIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.FLAG_ONE_SHOT)
 
         action = NotificationCompat.Action.Builder(R.drawable.ic_assistant_black_24dp,"Details",pendingIntent).build()
 
